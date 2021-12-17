@@ -13,10 +13,10 @@ namespace Pad3.Controllers
         public FlyController(ApplicationDbContext context) => _context = context;
 
         [HttpGet]
-        public async Task<IEnumerable<Fly>> Get(CancellationToken cancellationToken = default)
+        public Task<string> Get(CancellationToken cancellationToken = default)
         {
 
-            return await _context.Flies.ToListAsync(cancellationToken);
+            return Task.FromResult("CI/CD works!");
         }
 
         [HttpGet("{id}")]
