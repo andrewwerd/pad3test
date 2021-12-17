@@ -14,25 +14,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-var scope = app.Services.CreateScope();
-var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-db.Database.Migrate();
-
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
+app.MapControllers();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -40,6 +35,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllers();
+
 
 app.Run();
